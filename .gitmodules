@@ -10,3 +10,6 @@
 [submodule "bundle/vim-bash-support"]
 	path = bundle/vim-bash-support
 	url = git://github.com/vim-scripts/bash-support.vim.git
+[submodule "bundle/vim-commentary"]
+	path = bundle/vim-commentary
+	url = git://github.com/tpope/vim-commentary.git
