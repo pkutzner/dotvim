@@ -1,6 +1,9 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Settings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+execute pathogen#infect()
+execute pathogen#helptags()
+
 set nobomb                  " Set no Byte Order Mark (messes with some editors)
 set modelines=0             " Disable modelines
 setglobal fileencoding=utf-8 " Set permanent utf-8 file encoding
