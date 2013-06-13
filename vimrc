@@ -37,6 +37,9 @@ set undodir=~/.vim/tmp/undo//     " Undo directory
 set directory=~/.vim/tmp/swap//   " Swap directory
 set backupcopy=auto
 
+" Fix for editing user crontab file
+set backupskip=/tmp/*,/private/tmp/*
+
 " Make folders automatically if they don't already exist.
 if !isdirectory(expand(&undodir))
     call mkdir(expand(&undodir), "p")

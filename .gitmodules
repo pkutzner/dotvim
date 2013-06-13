@@ -19,3 +19,6 @@
 [submodule "bundle/closetag"]
 	path = bundle/closetag
 	url = git://github.com/vim-scripts/closetag.vim.git
+[submodule "bundle/vim-speeddating"]
+	path = bundle/vim-speeddating
+	url = git://github.com/tpope/vim-speeddating.git
