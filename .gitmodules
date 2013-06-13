@@ -31,3 +31,6 @@
 [submodule "bundle/vim-puppet"]
 	path = bundle/vim-puppet
 	url = git://github.com/rodjek/vim-puppet.git
+[submodule "bundle/vim-solarized-powerline"]
+	path = bundle/vim-solarized-powerline
+	url = git://github.com/stephenmckinney/vim-solarized-powerline
