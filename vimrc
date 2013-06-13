@@ -308,6 +308,21 @@ nmap <D-4> g$
 nmap <D-6> g^
 nmap <D-0> g^
 
+"Custom tabstops
+nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<cr>
+nmap \T :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<cr>
+nmap \M :set noexpandtab tabstop=8 shiftwidth=8 softtabstop=8<cr>
+nmap \m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<cr>
+
+"Quick-toggle wrap-mode
+nmap \w :setlocal wrap!<cr>:setlocal wrap?<cr>
+
+"Toggle line numbers
+nmap \l :setlocal number!<cr>
+
+"Toggle paste mode
+nmap \o :set paste!<cr>
+
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,wile,with,try,except,finally,def,class
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e``
 
