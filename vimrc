@@ -135,6 +135,7 @@ syntax enable
 set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
+let g:Powerline_colorscheme='solarized256_dark'
 "let g:solarized_degrade=1
 colorscheme solarized
 
