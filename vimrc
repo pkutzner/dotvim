@@ -126,7 +126,6 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 set shell=/opt/local/bin/bash\ --login
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
-set colorcolumn=+1
 set synmaxcol=800
 set notimeout
 set ttimeout
