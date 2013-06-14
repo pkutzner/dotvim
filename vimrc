@@ -239,6 +239,9 @@ imap <Del> <BS>
 "Shortcut to rapidly toggle 'set list'
 nmap <leader>l :set list!<CR>
 
+"Shortcut to LustyJuggler
+nmap <leader>L :LustyJuggler<cr>
+
 " Visual mode pressing * or # searches for the current selection
 " Super useful!  From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f')<CR>
