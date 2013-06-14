@@ -4,6 +4,7 @@
 execute pathogen#infect()
 execute pathogen#helptags()
 
+set history=1000            " Remember more commands and search history
 set nobomb                  " Set no Byte Order Mark (messes with some editors)
 set modelines=0             " Disable modelines
 setglobal fileencoding=utf-8 " Set permanent utf-8 file encoding
@@ -31,11 +32,12 @@ set encoding=utf-8
 set isk+=_,$,@,%,#,-,?,&    " none of these are valid word dividers, so make them not be
 set title                   " Show title in xterm
 set showmatch               " Show matching brackets
-set backup                  " keep a backup file
-set backupdir=~/.vim/tmp/backup// " Backup directory
-set undodir=~/.vim/tmp/undo//     " Undo directory
-set directory=~/.vim/tmp/swap//   " Swap directory
-set backupcopy=auto
+set nobackup                " Don't create backup files
+"set backup                  " keep a backup file
+"set backupdir=~/.vim/tmp/backup// " Backup directory
+"set undodir=~/.vim/tmp/undo//     " Undo directory
+"set directory=~/.vim/tmp/swap//   " Swap directory
+"set backupcopy=auto
 
 " Fix for editing user crontab file
 set backupskip=/tmp/*,/private/tmp/*
