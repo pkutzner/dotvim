@@ -43,3 +43,6 @@
 [submodule "bundle/bash-support"]
 	path = bundle/bash-support
 	url = git://github.com/vim-scripts/bash-support.vim.git
+[submodule "bundle/nagios"]
+	path = bundle/nagios
+	url = git://github.com/mv/mv-vim-nagios.git
