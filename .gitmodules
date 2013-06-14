@@ -7,9 +7,6 @@
 [submodule "bundle/vim-powerline"]
 	path = bundle/vim-powerline
 	url = git://github.com/Lokaltog/vim-powerline.git
-[submodule "bundle/vim-bash-support"]
-	path = bundle/vim-bash-support
-	url = git://github.com/vim-scripts/bash-support.vim.git
 [submodule "bundle/vim-commentary"]
 	path = bundle/vim-commentary
 	url = git://github.com/tpope/vim-commentary.git
@@ -43,3 +40,6 @@
 [submodule "bundle/LustyJuggler"]
 	path = bundle/LustyJuggler
 	url = git://github.com/vim-scripts/LustyJuggler.git
+[submodule "bundle/bash-support"]
+	path = bundle/bash-support
+	url = git://github.com/vim-scripts/bash-support.vim.git
