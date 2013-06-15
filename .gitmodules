@@ -46,3 +46,6 @@
 [submodule "bundle/nagios"]
 	path = bundle/nagios
 	url = git://github.com/mv/mv-vim-nagios.git
+[submodule "bundle/dhcpd"]
+	path = bundle/dhcpd
+	url = git://github.com/vim-scripts/dhcpd.vim.git
