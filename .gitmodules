@@ -49,3 +49,6 @@
 [submodule "bundle/dhcpd"]
 	path = bundle/dhcpd
 	url = git://github.com/vim-scripts/dhcpd.vim.git
+[submodule "bundle/ntp"]
+	path = bundle/ntp
+	url = git://github.com/vim-scripts/ntp.vim.git
