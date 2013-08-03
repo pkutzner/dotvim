@@ -123,7 +123,7 @@ set sidescrolloff=5
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
 "Added 2013-02-06
-set shell=/opt/local/bin/bash\ --login
+"set shell=/opt/local/bin/bash\ --login
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set synmaxcol=800
