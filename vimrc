@@ -25,6 +25,7 @@ set cpoptions-=n            " Don't number a word-wrapped line
 set matchpairs+=<:>         " Add angle brackets to pair-matching
 set nowrap                   " Turn off word-wrapping
 set cursorline              " Highlight current line
+set cursorcolumn            " Highlight current column
 set nojoinspaces            " One space after a "." rather than two
 set fileformat=unix         " Set default file format for new files
 set fileformats=unix,dos,mac " Support all three newline formats
