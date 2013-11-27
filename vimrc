@@ -94,18 +94,18 @@ set smartcase
 
 "Informative status-line
 set laststatus=2
-set statusline=%F%m%r%h%w\ 
-set statusline+=[BUF=%n]\ 
-set statusline+=[FORMAT=%{&ff}]\ 
-if v:version >= 600
-    " show character encoding
-    set statusline+=[ENC=%{&encoding}]\ 
-endif
-set statusline+=[TYPE=%Y]\ 
-set statusline+=[ASCII=\%03.3b]\ 
-set statusline+=[HEX=0x\%02.2B]\ 
-set statusline+=[POS=%04l,%04v][%p%%]\ 
-set statusline+=[LEN=%L]
+"set statusline=%F%m%r%h%w\ 
+"set statusline+=[BUF=%n]\ 
+"set statusline+=[FORMAT=%{&ff}]\ 
+"if v:version >= 600
+"    " show character encoding
+"    set statusline+=[ENC=%{&encoding}]\ 
+"endif
+"set statusline+=[TYPE=%Y]\ 
+"set statusline+=[ASCII=\%03.3b]\ 
+"set statusline+=[HEX=0x\%02.2B]\ 
+"set statusline+=[POS=%04l,%04v][%p%%]\ 
+"set statusline+=[LEN=%L]
 
 "Show vim mode
 set showmode
@@ -137,7 +137,8 @@ syntax enable
 set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
-let g:Powerline_colorscheme='solarized256_dark'
+"let g:airline_powerline_fonts = 1
+"let g:Powerline_colorscheme='solarized256_dark'
 "let g:solarized_degrade=1
 colorscheme solarized
 
