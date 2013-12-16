@@ -1,6 +1,7 @@
 [submodule "bundle/vim-pathogen"]
 	path = bundle/vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
+        ignore = dirty
 [submodule "bundle/vim-colors-solarized"]
 	path = bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
@@ -13,6 +14,7 @@
 [submodule "bundle/vim-markdown"]
 	path = bundle/vim-markdown
 	url = git://github.com/tpope/vim-markdown.git
+        ignore = dirty
 [submodule "bundle/closetag"]
 	path = bundle/closetag
 	url = git://github.com/vim-scripts/closetag.vim.git
@@ -28,6 +30,7 @@
 [submodule "bundle/vim-puppet"]
 	path = bundle/vim-puppet
 	url = git://github.com/rodjek/vim-puppet.git
+        ignore = dirty
 [submodule "bundle/vim-solarized-powerline"]
 	path = bundle/vim-solarized-powerline
 	url = git://github.com/stephenmckinney/vim-solarized-powerline
@@ -37,12 +40,14 @@
 [submodule "bundle/vim-surround"]
 	path = bundle/vim-surround
 	url = git://github.com/tpope/vim-surround.git
+        ignore = dirty
 [submodule "bundle/LustyJuggler"]
 	path = bundle/LustyJuggler
 	url = git://github.com/vim-scripts/LustyJuggler.git
 [submodule "bundle/bash-support"]
 	path = bundle/bash-support
 	url = git://github.com/vim-scripts/bash-support.vim.git
+        ignore = dirty
 [submodule "bundle/nagios"]
 	path = bundle/nagios
 	url = git://github.com/mv/mv-vim-nagios.git
@@ -55,3 +60,4 @@
 [submodule "bundle/vim-airline"]
 	path = bundle/vim-airline
 	url = git://github.com/bling/vim-airline.git
+        ignore = dirty
