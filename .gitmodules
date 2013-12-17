@@ -61,3 +61,6 @@
 	path = bundle/vim-airline
 	url = git://github.com/bling/vim-airline.git
         ignore = dirty
+[submodule "bundle/vim-zsh"]
+	path = bundle/vim-zsh
+	url = git://github.com/clones/vim-zsh.git
