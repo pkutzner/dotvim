@@ -137,30 +137,9 @@ syntax enable
 set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
-"let g:airline_powerline_fonts = 1
 "let g:Powerline_colorscheme='solarized256_dark'
 "let g:solarized_degrade=1
 colorscheme solarized
-
-" Airline configuration >>
-let g:airline_theme = 'tomorrow'
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-"let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-"let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-"let g:airline_symbols.linenr = '␤'
-"let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.paste = 'Þ'
-"let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-" << Airline configuration
 
 "Cursorline {{{
 " Only show cursorline in the current window and in normal mode.
