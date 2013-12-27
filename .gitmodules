@@ -57,10 +57,6 @@
 [submodule "bundle/ntp"]
 	path = bundle/ntp
 	url = git://github.com/vim-scripts/ntp.vim.git
-[submodule "bundle/vim-airline"]
-	path = bundle/vim-airline
-	url = git://github.com/bling/vim-airline.git
-        ignore = dirty
 [submodule "bundle/vim-zsh"]
 	path = bundle/vim-zsh
 	url = git://github.com/clones/vim-zsh.git
