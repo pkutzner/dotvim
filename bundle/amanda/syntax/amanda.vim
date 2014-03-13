@@ -19,8 +19,8 @@ syn case match
 syn keyword amandaTodo contained TODO TODO: FIXME FIXME: XXX XXX: NOTE NOTE:
 syn case ignore
 syn match amandaComment "#.*$" contains=amandaTodo
-syn match amandaInt "\<-\?\d\+\(\>\)\?"
-syn match amandaFloat "\<-\?\d\+\.\d\(\>\)\?"
+syn match amandaInt "\<-\?\d\+\>"
+syn match amandaFloat "\<-\?\d\+\.\d\+\>"
 syn keyword amandaSectDel { }
 
 syn keyword amandaSuffix b byte bytes bps
@@ -36,8 +36,8 @@ syn keyword amandaGlobalConst  all strange error never any other-config
 syn keyword amandaGlobalConst  non-amanda volume-error empty first firstfit
 syn keyword amandaGlobalConst  largest largestfit smallest last
 
-"syn keyword amandaUnits  k m g t
-syn match   amandaUnits "\(k\|m\|g\|t\)\>"
+"syn keyword amandaUnits  k m g t contained
+syn match  amandaUnit "\<\d\+\(\.\d\+\)\?\(k\|m\|g\|t\)\>"
 
 syn keyword amandaGlobalKeyword org mailer mailto report-format label-new-tapes
 syn keyword amandaGlobalKeyword autolabel meta-autolabel dumpuser printer tapedev
@@ -114,7 +114,7 @@ hi def link amandaKeyword        Keyword
 hi def link amandaGlobalKeyword  amandaType
 hi def link amandaSectionKeyword amandaType
 hi def link amandaType           Type
-hi def link amandaUnits          Constant
+hi def link amandaUnit           Constant
 hi def link amandaSectionType    Keyword
 hi def link amandaSection        amandaFunction
 hi def link amandaDefKey         Preproc
