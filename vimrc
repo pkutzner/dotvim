@@ -133,13 +133,13 @@ set ttimeout
 set ttimeoutlen=10
 
 "Set colors / color scheme
+colorscheme solarized
 syntax enable
 set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
-"let g:Powerline_colorscheme='solarized256_dark'
+let g:Powerline_colorscheme='solarized256_dark'
 "let g:solarized_degrade=1
-colorscheme solarized
 
 "Cursorline {{{
 " Only show cursorline in the current window and in normal mode.
