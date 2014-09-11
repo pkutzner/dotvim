@@ -133,12 +133,12 @@ set ttimeout
 set ttimeoutlen=10
 
 "Set colors / color scheme
-colorscheme solarized
-syntax enable
 set t_Co=256
+"let g:solarized_termcolors=256
+colorscheme solarized
 set background=dark
-let g:solarized_termcolors=256
-let g:Powerline_colorscheme='solarized256_dark'
+syntax enable
+"let g:Powerline_colorscheme='solarized256_dark'
 "let g:solarized_degrade=1
 
 "Cursorline {{{
