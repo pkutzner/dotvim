@@ -40,6 +40,16 @@ set nobackup                " Don't create backup files
 "set directory=~/.vim/tmp/swap//   " Swap directory
 "set backupcopy=auto
 
+"Set colors / color scheme
+"set t_Co=256
+"let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized
+syntax enable
+"let g:Powerline_theme='solarized256'
+"let g:Powerline_colorscheme='solarized256'
+"let g:solarized_degrade=1
+
 " Fix for editing user crontab file
 set backupskip=/tmp/*,/private/tmp/*
 
@@ -132,23 +142,12 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
-"Set colors / color scheme
-set t_Co=256
-colorscheme grb256
-"let g:solarized_termcolors=256
-"colorscheme solarized
-"set background=dark
-syntax enable
-"let g:Powerline_theme='solarized256'
-"let g:Powerline_colorscheme='solarized256'
-"let g:solarized_degrade=1
-
 "Cursorline {{{
 " Only show cursorline in the current window and in normal mode.
 augroup cline
     au!
-    au WinLeave,InsertEnter * set nocursorline
-    au WinEnter,InsertLeave * set cursorline
+    au WinLeave,InsertEnter * set nocursorline nocursorcolumn
+    au WinEnter,InsertLeave * set cursorline cursorcolumn
 augroup END
 " }}}
 
