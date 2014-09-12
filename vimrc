@@ -1,149 +1,159 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Settings
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-execute pathogen#infect()
-execute pathogen#helptags()
+" vim:set ts=2 sts=2 sw=2 expandtab:
 
-set history=1000            " Remember more commands and search history
-set nobomb                  " Set no Byte Order Mark (messes with some editors)
-set modelines=0             " Disable modelines
-setglobal fileencoding=utf-8 " Set permanent utf-8 file encoding
-set encoding=utf-8          " Set encoding to utf-8
-set termencoding=utf-8     " Set terminal encoding to utf-8
-set fileencodings=utf-8,iso-8859-15 " set file encoding preference order
-set shiftround
-set matchtime=3             " Number of tenths of seconds to show paren match
+autocmd!
 
-set cindent                 " Indent Comments
-set cinkeys=0{,0},:,!^F,o,O,e   " See "cinkeys"; this stops "#" from indenting
-set nocompatible            " Use Vim settins, as opposed to vi settings
-set bs=2                    " set backspace to be able to delete previous characters
-set backspace=indent,eol,start
-set whichwrap=<,>,[,],h,l   " Allows left/right keys to wrap across lines
-set number                  " Enable line numbering, taking up to 6 characters
-set cpoptions-=n            " Don't number a word-wrapped line
-set matchpairs+=<:>         " Add angle brackets to pair-matching
-set nowrap                   " Turn off word-wrapping
-set cursorline              " Highlight current line
-set cursorcolumn            " Highlight current column
-set nojoinspaces            " One space after a "." rather than two
-set fileformat=unix         " Set default file format for new files
-set fileformats=unix,dos,mac " Support all three newline formats
+call pathogen#incubate()
+
+set nocompatible
+" allow unsaved background buffers and remember marks/undo for them
+set hidden
+" remember more commands and search history
+set history=10000
+" Don't set a byte-order mark as it can mess with some editors
+set nobomb
+" Set permanent UTF-8 file encoding
+setglobal fileencoding=utf-8
+" Set encoding to UTF-8
 set encoding=utf-8
-set isk+=_,$,@,%,#,-,?,&    " none of these are valid word dividers, so make them not be
-set title                   " Show title in xterm
-set showmatch               " Show matching brackets
-set nobackup                " Don't create backup files
-"set backup                  " keep a backup file
-"set backupdir=~/.vim/tmp/backup// " Backup directory
-"set undodir=~/.vim/tmp/undo//     " Undo directory
-"set directory=~/.vim/tmp/swap//   " Swap directory
-"set backupcopy=auto
-
-"Set colors / color scheme
-"set t_Co=256
-"let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
-syntax enable
-"let g:Powerline_theme='solarized256'
-"let g:Powerline_colorscheme='solarized256'
-"let g:solarized_degrade=1
-
-" Fix for editing user crontab file
-set backupskip=/tmp/*,/private/tmp/*
-
-" Make folders automatically if they don't already exist.
-"if !isdirectory(expand(&undodir))
-"    call mkdir(expand(&undodir), "p")
-"endif
-"if !isdirectory(expand(&backupdir))
-"    call mkdir(expand(&backupdir), "p")
-"endif
-"if !isdirectory(expand(&directory))
-"    call mkdir(expand(&directory), "p")
-"endif
-
-set noswapfile              " It's 2013, Vim.
+" Set terminal encoding to UTF-8
+set termencoding=utf-8
+" Align '<' and '>' to a rounded multiple of 'shiftwidth'
+set shiftround
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set laststatus=2
+set showmatch
+" Number of tenths of a second to show paren match
+set matchtime=3
+set incsearch
+set hlsearch
+" make searches case-sensitive only if they contain upper-case characters
+set ignorecase smartcase
+" highlight current line
+set cursorline
+" highlight current column
+set cursorcolumn
+set cmdheight=1
+set switchbuf=useopen
+set showtabline=2
+set winwidth=79
+" this makes RVM work inside vim. I have no idea why.
+set shell=bash
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
+" keep more context when scrolling off the end of a buffer or line
+set scrolloff=3
+set sidescrolloff=3
+" Don't make backups at all
+set nobackup
+set nowritebackup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+" display incomplete commands
+set showcmd
+" Enable syntax highlighting
+syntax on
+" Enable file detection.
+" Use the default filetype settings, so that mail gets 'tw' set to 72,
+" 'cindent' is on in C files, etc.
+" Also load indent files, to automatically do language-dependent indenting.
+filetype plugin indent on
+" use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list
+" make tab completion for files/buffers act like bash
+set wildmenu
+" Set personal leader key to ','
+let mapleader=","
+let g:mapleader=","
+let maplocalleader="\\"
+" Fix slow O inserts
+:set timeout timeoutlen=1000 ttimeoutlen=100
+" set notimeout
+" set ttimeout
+" set ttimeoutlen=10
+" Normally, Vim messes with iskeyword when you open a shell file. This can
+" leak out, polluting other file types even after a 'set ft=' change. This
+" variable prevents the iskeyword change so it can't hurt anyone.
+let g:sh_noisk=1
+" None of these are valid word dividers, so make them not be
+set isk+=_,$,@,%,#,-,?,&
+" Modelines (comments that set vim options on a per-file basis)
+set modeline
+set modelines=3
+" Turn folding off for real, hopefully
+set foldmethod=manual
+set nofoldenable
+" Insert only one space when joining lines that contain sentence-terminating
+" punctuation like '.'.
+set nojoinspaces
+" If a file is changed outside of vim, automatically reload it without asking
+set autoread
+" Indent comments
+set cindent
+" See 'cinkeys'; this stops '#' from indenting
+set cinkeys=0{,0},:,!^F,o,O,e
+" Allow backspace to delete previous characters
+set bs=2
+" Allows left/right keys to wrap across lines
+set whichwrap=<,>,[,],h,l
+" Enable line numbering, taking up to 6 characters
+set number
+" Don't number a word-wrapped line
+set cpoptions-=n
+" Add angle brackets to pair-matching
+set matchpairs+=<:>
+" Turn off line-wrapping
+set nowrap
+" Set default file format for new files
+set fileformat=unix
+" Support all three newline formats
+set fileformats=unix,dos,mac
+" Show title in xterm
+set title
+set noswapfile
 set swapsync=fsync
-set autoread                " Automatically re-read files that have been changed externally
-set lazyredraw              " Don't redraw while executing macros
-
-set undolevels=1000         " 1000 undo levels
-"set complete=.,w,b,u,U,t,i,d " Lots of scanning on tab completion
+" Don't redraw while executing macros
+set lazyredraw
 set complete=.,w,b,u,t,i,d
 set completeopt=longest,menuone,preview
 set ttyfast
-
 set diffopt=filler,iwhite
-
-set nostartofline           " makes cursor col stay put while scrolling
-
-"
+set nostartofline
 " Disable annoying sound on errors
 set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
-
-"Turn on smart-indent
-set smartindent
-set expandtab
-set smarttab
-set tabstop=8
-set shiftwidth=4
-set softtabstop=4
-
 " Shorten command-line text and other info tokens (see :help shortmess)
 set shortmess=atI
-
-"Turn on incremental search with ignore-case (except explicit caps)
-set incsearch
-set ignorecase
-set smartcase
-
-"Informative status-line
-set laststatus=2
-"set statusline=%F%m%r%h%w\ 
-"set statusline+=[BUF=%n]\ 
-"set statusline+=[FORMAT=%{&ff}]\ 
-"if v:version >= 600
-"    " show character encoding
-"    set statusline+=[ENC=%{&encoding}]\ 
-"endif
-"set statusline+=[TYPE=%Y]\ 
-"set statusline+=[ASCII=\%03.3b]\ 
-"set statusline+=[HEX=0x\%02.2B]\ 
-"set statusline+=[POS=%04l,%04v][%p%%]\ 
-"set statusline+=[LEN=%L]
-
-"Show vim mode
+" Show Vim mode
 set showmode
 set showcmd
-
-"Use same symbols as TextMate for tabstops and EOLs
+" Use same symbols as TextMate for tabstops and EOLs
 set listchars=tab:▸\ ,eol:¬,trail:☠
-
-"Hide buffer when not in window (to prevent relogin with FTP edit)
+" Hide buffer when not in window (to prevent relogin with FTP edit)
 set bufhidden=hide
-
-"Have 1 lines of offset (or buffer) when scrolling
-set scrolloff=5
-set sidescrolloff=5
-
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
-
-"Added 2013-02-06
-"set shell=/opt/local/bin/bash\ --login
 set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 set synmaxcol=800
-set notimeout
-set ttimeout
-set ttimeoutlen=10
 
-"Cursorline {{{
-" Only show cursorline in the current window and in normal mode.
+" Enable plugins
+filetype plugin on
+
+" Set colors/colorscheme
+set t_Co=256
+set background=dark
+colorscheme grb256
+
+" Cursorline {{{
+"   Only show cursorline in the current window and in normal mode.
 augroup cline
     au!
     au WinLeave,InsertEnter * set nocursorline nocursorcolumn
@@ -157,105 +167,62 @@ au FocusLost * :silent! wall
 " Resize splits when the window is resized
 au VimResized * :wincmd =
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Keybindings and misc.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Options for bash-support plugin
-let g:BASH_AuthorName   = 'Preston Kutzner'
-let g:BASH_Email        = 'pkutzner@marketingresources.com'
-let g:BASH_Company      = 'Marketing Resources, Inc.'
-
-nore ; :
-
-"Highlight trailing whitespace
+" Highlight trailing whitespace
 highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
 match WhitespaceEOL /\s\+$/
 
 " Remove windows ^M - when the encodings get messed up
 noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-let mapleader = ","         " Make ',' personal leader key
-let g:mapleader = ","
-let maplocalleader = "\\"
+" Set format options
+" t - autowrap textwidth
+" c - autowrap comments to textwidth
+" r - autoinsert comment leader with <Enter>
+" q - allow formatting of comments with :gq
+" l - don't format already long lines
+set formatoptions=t,c,r,o,q,l
 
-nmap <leader>w :w!<cr>
-nmap <leader>ww :w!!<cr>
-nmap <leader>tw :. w! ~/.vimxfer<CR>
-nmap <leader>tr :r ~/.vimxfer<CR>
-nmap <leader>ta :. w! >>~/.vimxfer<CR>
-
-filetype plugin on          " Enable plugins
-
-if version >= 600
-    " Vim 6 options
-    set formatoptions=tcroql    " colo cduan
-                                " t - autowrap textwidth
-                                " c - autowrap comments to textwidth
-                                " r - autoinsert comment leader with <Enter>
-                                " q - allow formatting of comments with :gq
-                                " l - don't format already long lines
-    syn sync fromstart          " Increase highlighting accuracy
+" Syntax highlighting
+if v:version >= 600
+    " Vim 6+
+    " Increase highlighting accuracy
+    syn sync fromstart
 else
-    set fo=tcroql
     syn sync minlines=1000
 endif
 
-if version >= 720
+if v:version >= 700
     set relativenumber
+    " Pressing <leader>rn will toggle/untoggle relative numbering
+    map <leader>rn :setlocal relativenumber!<CR>:setlocal relativenumber?<CR>
 endif
 
-"" vim 7 omnicompletion
-" doesn't quite work
-if has("autocmd") && exists("omnifunc")
-    autocmd Filetype *
-        if &omnifunc == "" |
-            setlocal omnifunc=syntaxcomplete#Complete |
-        endif
-endif
-
-if has("autocmd")
-    au BufNewFile,BufReadPre *.gpg :set secure vimi= noswap noback nowriteback hist=0 binary
-    au BufReadPost *.gpg :%!gpg -d 2>/dev/null
-    au BufWritePre *.gpg :%!gpg -e -r 'pkutzner@gmail.com' 2>/dev/null
-    au BufWritePost *.gpg u
-endif
-
-"Turn on spell checking with English dictionary
-"set spell
-"set spelllang=en
-"set spellsuggest=9 "Only offer 9 spelling suggestions
-
-filetype indent on "Indent depends on file type
-:inoremap # X#
-
-"Shortcut to indent entire file
+" Shortcut to indent entire file
 nmap <F11> 1G=G
 imap <F11> <ESC>1G=Ga
 
+" Delete = Backspace
 nmap <Del> <BS>
 imap <Del> <BS>
 
-"Shortcut to rapidly toggle 'set list'
+" Rapidly toggle 'set list'
 nmap <leader>l :set list!<CR>
 
-"Shortcut to LustyJuggler
-nmap <leader>L :LustyJuggler<cr>
+" Shortcut to LustyJuggler
+nmap <leader>L :LustyJuggler<CR>
 
-" Visual mode pressing * or # searches for the current selection
-" Super useful!  From an idea by Michael Naumann
+" Search forward (*) and backward (#) for current selection in visual mode
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
-" Map <space> to / (search) and Ctrl-<space> to ? (backward search)
+" Map <space> to / (search) and <ctrl><space> to ? (rev. search) in normal mode
 map <space> /
 map <c-space> ?
 
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+" Change CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<CR>:pwd<CR>
 
-" Return to last edit position when opening files
+" Return to last edit position when opening a file
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
@@ -263,12 +230,6 @@ autocmd BufReadPost *
 
 " Remember info about open buffers on close
 set viminfo^=%
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 if has("mac") || has("macunix")
     nmap <D-j> <M-j>
@@ -280,10 +241,10 @@ endif
 " Pressing <leader>ss (,ss) will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-" Shortcuts using leader
+" Shortcuts using <leader> for spelling
 " Next misspelled word
 map <leader>sn ]s
-" Previous misspelled word
+" Prev. misspelled word
 map <leader>sp [s
 " Add word to dictionary
 map <leader>sa zg
@@ -292,142 +253,66 @@ map <leader>su zug
 " Search suggestions
 map <leader>s? z=
 
-"Map ctrl-movement keys to window switching
+" Map Ctrl-movement keys to window switching
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-"Switch to alternate file
-map <C-Tab> :bnext<cr>
-map <C-S-Tab> :bprevious<cr>
+" Switch to alternate file
+map <C-Tab> :bnext<CR>
+map <C-S-Tab> :bprevious<CR>
 
-"Map Opt-[key] to movement keys within wrapped lines.
-vmap <D-j> gj
-vmap <D-k> gk
-vmap <D-4> g$
-vmap <D-6> g^
-vmap <D-0> g^
-nmap <D-j> gj
-nmap <D-k> gk
-nmap <D-4> g$
-nmap <D-6> g^
-nmap <D-0> g^
+" Quick convert tabstops for a file
+nmap <localleader>t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<CR>
+nmap <localleader>T :set expandtab tabstop=8 shiftwidth=8 softtabstop=8<CR>
+nmap <localleader>M :set noexpandtab tabstop=8 shiftwidth=8 softtabstop=8<CR>
+nmap <localleader>m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<CR>
 
-"Custom tabstops
-nmap \t :set expandtab tabstop=4 shiftwidth=4 softtabstop=4<cr>
-nmap \T :set expandtab tabstop=8 shiftwidth=8 softtabstop=4<cr>
-nmap \M :set noexpandtab tabstop=8 shiftwidth=8 softtabstop=8<cr>
-nmap \m :set expandtab tabstop=2 shiftwidth=2 softtabstop=2<cr>
+" Quick-toggle wrap-mode
+nmap <localleader>w :setlocal wrap!<CR>:setlocal wrap?<CR>
 
-"Quick-toggle wrap-mode
-nmap \w :setlocal wrap!<cr>:setlocal wrap?<cr>
+" Quick-toggle line numbers
+nmap <localleader>l :setlocal number!<CR>:setlocal number?<CR>
 
-"Toggle line numbers
-nmap \l :setlocal number!<cr>
+" Quock-toggle paste-mode
+nmap <localleader>o :setlocal paste!<CR>:setlocal paste?<CR>
 
-"Toggle paste mode
-nmap \o :set paste!<cr>
-
-autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,wile,with,try,except,finally,def,class
+" Indentation specific for python
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,with,try,except,finally,def,class
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e``
 
-function! ToggleBackground()
-    if (g:solarized_style=="dark")
-        let g:solarized_style="light"
-        colorscheme solarized
-    else
-        let g:solarized_style="dark"
-        colorscheme solarized
-    endif
-endfunction
-command! Togbg call ToggleBackground()
-nnoremap <F5> :call ToggleBackground()<CR>
-inoremap <F5> <ESC>:call ToggleBackground()<CR>a
-vnoremap <F5> <ESC>:call ToggleBackground()<CR>
-nnoremap <F8> :setlocal noautoindent nocindent nosmartindent indentexpr= comments=<CR>
-
-" Make ^e and ^y scroll 3 lines instead of one
-nnoremap <C-e> 3<C-e>
-nnoremap <C-y> 3<C-y>
-
 " <leader>W strips all trailing whitespace from current file
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+nnoremap <leader>W :%s/\s\+$//<CR>:let @/=''<CR>
 
+" Set filetype to 'text' for files ending in .txt
 if has("autocmd")
-    " Set File type to 'text' for files ending in .txt
     autocmd BufNewFile,BufRead *.txt setfiletype text
     autocmd FileType text,markdown,html setlocal wrap linebreak nolist showbreak=…
 endif
 
-" Useful when you've forgotten to sudo edit a file
-"cmap w!! w !sudo tee % >/dev/null
-"cmap w!! w !sudo dd of=%
+"let's add a line here
+
+" Useful if you've forgotten to sudo edit a file
 command! W :execute ':silent w !sudo tee % >/dev/null' | :edit!
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we are at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Multi-purpose Tab key: Indent if at the beginning of a line, else do
+" completion.
 function! InsertTabWrapper()
     let col = col('.') - 1
     if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
+        return "\<TAB>"
     else
-        return "\<c-n>"
+        return "\<C-n>"
     endif
 endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>"
+inoremap <TAB> <C-r>=InsertTabWrapper()<CR>
+inoremap <S-TAB> <C-n>"
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Files/Backups
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Windows
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Instead of having to press 'ctrl-w h' to move the window to the left, just
-" press ctrl-h
-"map <C-h> <C-w>h
-"map <C-j> <C-w>j
-"map <C-k> <C-w>k
-"map <C-l> <C-w>l
+" Syntax highlight shell scripts as per POSIX.
+" not the original Bourne shell which very few use.
+let g:is_posix=1 
 
-" Syntax highlight shell scripts as per POSIX,
-" not the original Bourne shell which very few use
-let g:is_posix = 1
-
-" InsertTime COMMAND (Insert the current time)
-command! InsertTime :normal a<c-r>=strftime('%F %H:%M:%S.0 %z')<c-r>
-
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
-function! VisualSelection(direction) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . ""
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . ""
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-" Diff with saved version of the file
 function! DiffWithSaved()
     let filetype=&ft
     diffthis
@@ -435,11 +320,14 @@ function! DiffWithSaved()
     diffthis
     exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
-com! DiffSaved call DiffWithSaved()
+command! DiffSaved call DiffWithSaved()
 
-" Reverse number row characters
+"-----------------------------------------------------
+" Reverse number row characters (e.g. Shift-Lock the
+" number row).
+"-----------------------------------------------------
 function! ReverseNumberRow()
-    " Map each number to its  shift-key character
+    inoremap ` ~
     inoremap 1 !
     inoremap 2 @
     inoremap 3 #
@@ -451,7 +339,8 @@ function! ReverseNumberRow()
     inoremap 9 (
     inoremap 0 )
     inoremap - _
-    " and then the opposite
+    inoremap = +
+    inoremap ~ `
     inoremap ! 1
     inoremap @ 2
     inoremap # 3
@@ -463,10 +352,11 @@ function! ReverseNumberRow()
     inoremap ( 9
     inoremap ) 0
     inoremap _ -
+    inoremap + =
 endfunction
 
-" Reverse ReverseNumberRow chnages (back to normal)
-function! NormalizeNumberRow()
+function! RestoreNumberRow()
+    iunmap `
     iunmap 1
     iunmap 2
     iunmap 3
@@ -478,7 +368,8 @@ function! NormalizeNumberRow()
     iunmap 9
     iunmap 0
     iunmap -
-    "-------
+    iunmap =
+    iunmap ~
     iunmap !
     iunmap @
     iunmap #
@@ -490,6 +381,7 @@ function! NormalizeNumberRow()
     iunmap (
     iunmap )
     iunmap _
+    iunmap +
 endfunction
 
 function! ToggleNumberRow()
@@ -498,63 +390,60 @@ function! ToggleNumberRow()
         call ReverseNumberRow()
     else
         let g:NumberRow = 0
-        call NormalizeNumberRow()
+        call RestoreNumberRow()
     endif
 endfunction
 
-" Call ToggleNumberRow
+" <leader>tnr to toggle number row
 nnoremap <leader>tnr :call ToggleNumberRow()<CR>
 
-" Toggle line numbers
-nnoremap <leader>n :setlocal number!<CR>
-
-" Uppercase word mapping
+" Uppercase current word
 "
-" This mapping allows you to press <c-u> in insert mode to convert the current
-" word to uppercase.  It's handy when you're writing names of constants and
+" This mapping allows you to press <C-u> in insert mode to convert the current
+" word to uppercase. It's handy when you're writing names of constants and
 " don't want to use CapsLock.
 "
-" To use it, type the name of the constant in lowercase.  While your
-" cursor is at the end of the word, press <c-u> to uppercase it, and then
-" continue happily on your way.
+" To use it, type the word in lowercase.  While your cursor is at the end of
+" the word, press <C-u> to uppercase it, and then continue happily on your
+" way.
 "
 " It works by exiting out of insert mode, recording the current cursor
 " location in the z mark, using gUiw to uppercase inside the current word,
 " moving back to the z mark, and entering insert mode again.
 "
-" Note that this will overwrite the contents of the z mark.  I never use it,
-" but if you do, you'll probably want to use another mark.
+" NOTE: This will overwrite your z mark.  I never use it, but if you do,
+" change it to something else.
 inoremap <C-u> <esc>mzgUiw`za
 
-" Panic button
-nnoremap <f9> mzggg?G`z
-
-" Emacs bindings in command line mode
-cnoremap <c-a> <home>
-cnoremap <c-e> <end>
+" Emacs bindings in command mode
+cnoremap <C-a> <home>
+cnoremap <C-e> <end>
 
 " Reformat line.
-" I never use l as a macro register anyway.
+" I never use l as a macro register, but caveat emptor.
 nnoremap ql ^vg_gq
 
 " Split line (sister to [J]oin lines)
-" The normal use of S is covered by cc, so don't worry about shadowing it.
-nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
+" The normal use of S is covered by cc, so don't worry about overloading it.
+nnoremap S i<CR><esc>^mwgk:silent! s/\v +$//<CR>:noh<CR>`w
 
-" Keep the cursor in place while joining lines
+" Keep cursor in place while joining lines
 nnoremap J mzJ`z
 
-" Directional keys {{{
-" It's 2013.
+" Directional keys
 noremap j gj
 noremap k gk
 noremap gj j
 noremap gk k
 
-" Easy buffer navigation
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <leader>v <C-w>v
-" }}}
+" OpenChangedFiles COMMAND (Open a split for each dirty file in git)
+function! OpenChangedFiles()
+    only " Close all windows, unless they're modified
+    let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
+    let filenames = split(status, "\n")
+    exec "edit " . filenames[0]
+    for filename in filenames[1:]
+        exec "sp " . filename
+    endfor
+endfunction
+command! OpenChangedFiles :call OpenChangedFiles()
