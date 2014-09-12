@@ -3,6 +3,8 @@
 autocmd!
 
 call pathogen#incubate()
+execute pathogen#infect()
+execute pathogen#helptags()
 
 set nocompatible
 " allow unsaved background buffers and remember marks/undo for them
@@ -38,7 +40,7 @@ set cursorline
 set cursorcolumn
 set cmdheight=1
 set switchbuf=useopen
-set showtabline=2
+set showtabline=0
 set winwidth=79
 " this makes RVM work inside vim. I have no idea why.
 set shell=bash
@@ -84,8 +86,9 @@ let g:sh_noisk=1
 " None of these are valid word dividers, so make them not be
 set isk+=_,$,@,%,#,-,?,&
 " Modelines (comments that set vim options on a per-file basis)
-set modeline
-set modelines=3
+"set modeline
+"set modelines=3
+set modelines=0
 " Turn folding off for real, hopefully
 set foldmethod=manual
 set nofoldenable
