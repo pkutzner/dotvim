@@ -2,10 +2,10 @@
 
 autocmd!
 
-call pathogen#incubate()
+"call pathogen#incubate()
 "call pathogen#runtime_append_all_bundles()
-"execute pathogen#infect()
-"execute pathogen#helptags()
+execute pathogen#infect()
+execute pathogen#helptags()
 
 set nocompatible
 " allow unsaved background buffers and remember marks/undo for them
@@ -141,7 +141,11 @@ set shortmess=atI
 set showmode
 set showcmd
 " Use same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬,trail:☠
+set listchars=tab:▸\ ,eol:¬,trail:☠,extends:#,nbsp:.
+" Disable showing certain whitespace chars in certain files
+if has('autocmd')
+    autocmd filetype html,xml set listchars=-tab:>.
+endif
 " Hide buffer when not in window (to prevent relogin with FTP edit)
 set bufhidden=hide
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
@@ -153,10 +157,12 @@ set synmaxcol=800
 filetype plugin on
 
 " Set colors/colorscheme
-set t_Co=256
-set background=dark
-colorscheme grb256
-"colorscheme solarized
+"set t_Co=256
+if &t_Co >= 256 || has("gui_running")
+    set background=dark
+    colorscheme grb256
+    "colorscheme solarized
+endif
 
 " Cursorline {{{
 "   Only show cursorline in the current window and in normal mode.
@@ -217,6 +223,10 @@ nmap <leader>l :set list!<CR>
 " Shortcut to LustyJuggler
 nmap <leader>L :LustyJuggler<CR>
 
+" Quickly edit/reload .vimrc
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
 " Search forward (*) and backward (#) for current selection in visual mode
 vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
@@ -229,13 +239,21 @@ map <c-space> ?
 map <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Return to last edit position when opening a file
-autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
+if has ('autocmd')
+    autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+endif
 
 " Remember info about open buffers on close
 set viminfo^=%
+
+" Move a line of text using ALT+[j/k] or Command+[j/k] on Mac
+nmap <M-j> mz:m+<CR>`z
+nmap <M-k> mz:m-2<CR>`z
+vmap <M-j> :m'>+<CR>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
 
 if has("mac") || has("macunix")
     nmap <D-j> <M-j>
@@ -244,8 +262,14 @@ if has("mac") || has("macunix")
     vmap <D-k> <M-k>
 endif
 
+" Search and replace selected text using <leader>r
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+
 " Pressing <leader>ss (,ss) will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
+
+" Clear highlighted searches
+nmap <silent> <leader>/ :nohlsearch<CR>
 
 " Shortcuts using <leader> for spelling
 " Next misspelled word
@@ -260,10 +284,10 @@ map <leader>su zug
 map <leader>s? z=
 
 " Map Ctrl-movement keys to window switching
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
 " Switch to alternate file
 map <C-Tab> :bnext<CR>
@@ -297,23 +321,24 @@ if has("autocmd")
     autocmd FileType text,markdown,html setlocal wrap linebreak nolist showbreak=…
 endif
 
-"let's add a line here
+" I'm a lazy typist, so reduce a 2-key combo to 1 key.
+nnoremap ; :
 
 " Useful if you've forgotten to sudo edit a file
 command! W :execute ':silent w !sudo tee % >/dev/null' | :edit!
 
 " Multi-purpose Tab key: Indent if at the beginning of a line, else do
 " completion.
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<TAB>"
-    else
-        return "\<C-n>"
-    endif
-endfunction
-inoremap <TAB> <C-r>=InsertTabWrapper()<CR>
-inoremap <S-TAB> <C-n>"
+"function! InsertTabWrapper()
+"    let col = col('.') - 1
+"    if !col || getline('.')[col - 1] !~ '\k'
+"        return "\<TAB>"
+"    else
+"        return "\<C-n>"
+"    endif
+"endfunction
+"inoremap <TAB> <C-r>=InsertTabWrapper()<CR>
+"inoremap <S-TAB> <C-n>"
 
 " Syntax highlight shell scripts as per POSIX.
 " not the original Bourne shell which very few use.
@@ -553,3 +578,35 @@ function! OpenChangedFiles()
     endfor
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    umenu Foo
+endfunction
+
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$', "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . ""
+    elseif a:direction == 'gv'
+        call CmdLine("Ack \"" . l:pattern . "\" ")
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . ""
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+"UltiSnips config:
+let g:UltiSnipsExpandTrigger="<TAB>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpBackwardTrigger="<C-p>"
