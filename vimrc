@@ -3,8 +3,9 @@
 autocmd!
 
 call pathogen#incubate()
-execute pathogen#infect()
-execute pathogen#helptags()
+"call pathogen#runtime_append_all_bundles()
+"execute pathogen#infect()
+"execute pathogen#helptags()
 
 set nocompatible
 " allow unsaved background buffers and remember marks/undo for them
@@ -92,6 +93,7 @@ set modelines=0
 " Turn folding off for real, hopefully
 set foldmethod=manual
 set nofoldenable
+
 " Insert only one space when joining lines that contain sentence-terminating
 " punctuation like '.'.
 set nojoinspaces
@@ -154,6 +156,7 @@ filetype plugin on
 set t_Co=256
 set background=dark
 colorscheme grb256
+"colorscheme solarized
 
 " Cursorline {{{
 "   Only show cursorline in the current window and in normal mode.
@@ -314,7 +317,7 @@ inoremap <S-TAB> <C-n>"
 
 " Syntax highlight shell scripts as per POSIX.
 " not the original Bourne shell which very few use.
-let g:is_posix=1 
+let g:is_posix=1
 
 function! DiffWithSaved()
     let filetype=&ft
@@ -325,6 +328,88 @@ function! DiffWithSaved()
 endfunction
 command! DiffSaved call DiffWithSaved()
 
+" Invert scrollbind for all buffers
+function! InvertScrollBindAll()
+    if &scrollbind
+        windo set noscrollbind
+        echo "disable scrollbind"
+    else
+        windo set scrollbind
+        echo "enable scrollbind"
+    endif
+endfunction
+nnoremap <leader>sb :call InvertScrollBindAll()<CR>
+
+" Invert diff for all buffers
+function! InvertDiffAll()
+    if &diff
+        windo set nodiff
+        echo "disable diff"
+    else
+        windo set diff
+        echo "enable diff"
+    endif
+endfunction
+nnoremap <leader>id :call InvertDiffAll()<CR>
+
+" Invert cursor bind for all buffers
+function! InvertCursorBindAll()
+    if &cursorbind
+        windo set nocursorbind
+        echo "disable cursorbind"
+    else
+        windo set cursorbind
+        echo "enable cursorbind"
+    endif
+endfunction
+nnoremap <leader>cb :call InvertCursorBindAll()<CR>
+nnoremap <leader>diff :call InvertScrollBindAll()<CR>:call InvertDiffAll()<CR>:call InvertCursorBindAll()<CR>
+
+function! CloneAs( filespec, isSplit, startLnum, endLnum )
+    if bufexists(a:filespec) && bufloaded(a:filespec)
+        echo "File exists and is open: " . a:filespec
+        return 0
+    endif
+
+    let l:save_eventignore = &eventignore
+    set eventignore+=BufNewFile "Do not trigger template systems etc.; The appropriate event is BufRead, which we'll emit instead.
+    try
+        let l:filetype = &l:filetype
+        let l:fileformat = &l:fileformat
+        let l:fileencoding = &l:fileencoding
+        let l:isEntireBuffer = (a:startLnum == 1 && a:endLnum == line('$'))
+        let l:view = winsaveview()
+        let l:contents = getline(a:startLnum, a:endLnum)
+
+        execute (a:isSplit ? ' vsplit' : 'edit') a:filespec
+
+        let &l:fileformat = l:fileformat
+        let &l:fileencoding = l:fileencoding
+
+        call setline(1, l:contents)
+
+        if ! l:isEntireBuffer
+            let l:view.lnum -= a:startLnum - 1
+            let l:view.topline -= a:startLnum - 1
+        endif
+        silent! call winresetview(l:view)
+
+        doautocmd BufRead
+
+        if ! empty(l:filetype) && &l:filetype !=# l:filetype
+            let &l:filetype = l:filetype
+        endif
+
+        return 1
+
+    catch /^Vim\%((\a\+)\)\=:/
+        return 0
+    finally
+        let &eventignore = l:save_eventignore
+    endtry
+endfunction
+command! -bar -range=% -nargs=1 -complete=file CloneAs call CloneAs(<q-args>, 0, <line1>, <line2>)
+command! -bar -range=% -nargs=1 -complete=file SCloneAs call CloneAs(<q-args>, 1, <line1>, <line2>)
 "-----------------------------------------------------
 " Reverse number row characters (e.g. Shift-Lock the
 " number row).
@@ -421,6 +506,24 @@ inoremap <C-u> <esc>mzgUiw`za
 " Emacs bindings in command mode
 cnoremap <C-a> <home>
 cnoremap <C-e> <end>
+
+" Disable speeddating plugin key mappings.
+" Speeddating remaps <C-a> in normal mode, but I
+"  want to use it for emacs-style nav in normal mode
+"  instead.
+let g:speeddating_no_mappings=1
+
+" Emacs bindings in normal mode
+nnoremap <C-a> 0
+nnoremap <C-e> $
+
+" Rebind speeddating plugins to <C-i>
+nmap <C-i>      <Plug>SpeedDatingUp
+nmap <C-x>      <Plug>SpeedDatingDown
+xmap <C-i>      <Plug>SpeedDatingUp
+xmap <C-x>      <Plug>SpeedDatingDown
+nmap d<C-i>     <Plug>SpeedDatingNowUTC
+nmap d<C-x>     <Plug>SpeedDatingNowLocal
 
 " Reformat line.
 " I never use l as a macro register, but caveat emptor.
