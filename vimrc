@@ -160,8 +160,8 @@ filetype plugin on
 "set t_Co=256
 if &t_Co >= 256 || has("gui_running")
     set background=dark
-    colorscheme grb256
-    "colorscheme solarized
+"    colorscheme grb256
+    colorscheme solarized
 endif
 
 " Cursorline {{{
@@ -204,9 +204,11 @@ else
 endif
 
 if v:version >= 700
-    set relativenumber
-    " Pressing <leader>rn will toggle/untoggle relative numbering
-    map <leader>rn :setlocal relativenumber!<CR>:setlocal relativenumber?<CR>
+    if has('relativenumber')
+        set relativenumber
+        " Pressing <leader>rn will toggle/untoggle relative numbering
+        map <leader>rn :setlocal relativenumber!<CR>:setlocal relativenumber?<CR>
+    endif
 endif
 
 " Shortcut to indent entire file
